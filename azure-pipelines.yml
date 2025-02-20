@@ -41,6 +41,10 @@ stages:
 
     - publish: '$(Build.SourcesDirectory)/manifests'
       artifact: manifests
+    # - task: PublishBuildArtifacts@1
+    #   inputs:
+    #     PathtoPublish: '$(Build.SourcesDirectory)/manifests'
+    #     ArtifactName: manifests
 
 - stage: 'Deploy'
   displayName: 'Deploy the containers'
@@ -59,6 +63,10 @@ stages:
           steps:
             - download: current
               artifact: manifests
+            # - task: DownloadBuildArtifacts@1
+            #   inputs:
+            #     artifactName: manifests
+            #     buildId: '$(Build.BuildId)' 
 
             - task: KubernetesManifest@1
               displayName: Create imagePullSecret
